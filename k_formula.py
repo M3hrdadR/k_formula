@@ -63,7 +63,8 @@ def replace(lst, index_of_longest, index_for_replacement, element_index):
     del (lst[index_for_replacement])
     return size
 
-def k_forlula(lst):
+
+def k_formula(lst):
     while len(lst) > 1:
         index = longest_element(lst)
         mid = len(lst[index]) // 2
@@ -78,12 +79,42 @@ def k_forlula(lst):
             if i >= len(lst[index]):
                 break
             print(lst[index])
-    print(Lst)
+    print(lst)
 
 
-n = int(input('Enter number of vertices: '))
-G = graph_create(n)
-G = graph_read(G)
-M = G.Matrix
-Lst = first_step(M)
-k_forlula(Lst)
+def making_graph(formula):
+    lst = []
+    while len(formula) != 1:
+        star_count = 0
+        star_index = -1
+        while formula[star_index] != '*':
+            star_index -= 1
+        mid_char_index = star_index + 1
+        while formula[star_index] == '*':
+            star_count += 1
+            star_index -= 1
+            if star_index < -1 * len(formula):
+                break
+        star_index += 1
+        tmp_index = mid_char_index + 1
+        x = star_count
+        while x != 0:
+            lst.append(formula[mid_char_index] + formula[tmp_index])
+            tmp_index += 1
+            x -= 1
+        formula = formula[:star_index] + formula[mid_char_index] + formula[star_index + 2*star_count + len(formula) + 1:]
+
+
+def start_getting_graph():
+    n = int(input('Enter number of vertices: '))
+    G = graph_create(n)
+    G = graph_read(G)
+    M = G.Matrix
+    Lst = first_step(M)
+    k_formula(Lst)
+
+
+def start_getting_formula():
+    n = int(input("Enter the number of vertices:"))
+    formula = input("Enter k_formula: ")
+    making_graph(formula, n)
