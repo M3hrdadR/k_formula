@@ -11,5 +11,7 @@ def start():
         start_getting_graph()
 
 
+start()
+
 
 
